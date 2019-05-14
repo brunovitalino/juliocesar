@@ -13,6 +13,9 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <org.springframework.version>4.3.20.RELEASE</org.springframework.version>
+    <org.apache.tomcat.version>9.0.14</org.apache.tomcat.version>
+    <com.fasterxml.jackson.version>2.9.8</com.fasterxml.jackson.version>
   </properties>
   
 	<dependencies>
@@ -20,13 +23,26 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-webmvc</artifactId>
-		    <version>4.3.20.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-servlet-api -->
 		<dependency>
 		    <groupId>org.apache.tomcat</groupId>
 		    <artifactId>tomcat-servlet-api</artifactId>
-		    <version>9.0.14</version>
+			<version>${org.apache.tomcat.version}</version>
+		</dependency>
+		<!-- JACKSON - Faz os binds do JSON em objetos -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+			<version>${com.fasterxml.jackson.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+			<version>${com.fasterxml.jackson.version}</version>
 		</dependency>
 	</dependencies>
 </project>

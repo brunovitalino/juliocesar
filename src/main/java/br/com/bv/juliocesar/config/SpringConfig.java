@@ -1,24 +1,25 @@
 package br.com.bv.juliocesar.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import br.com.bv.juliocesar.controller.MensagemController;
+public class SpringConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-@EnableWebMvc
-@ComponentScan(basePackageClasses={MensagemController.class})
-public class SpringConfig {
-
-	@Bean
-	public InternalResourceViewResolver internalResourceViewResolver() {
-		
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-
-		return resolver;
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		// TODO Auto-generated method stub
+		return new Class[] {AppConfig.class};
+	}
+
+	@Override
+	protected String[] getServletMappings() {
+		// TODO Auto-generated method stub
+		return new String[] {"/"};
+	}
+
 }

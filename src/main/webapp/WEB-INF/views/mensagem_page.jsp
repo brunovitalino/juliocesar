@@ -8,5 +8,6 @@
 </head>
 <body>
 	<div>Funcionou.</div>
+	<div>${answer }</div>
 </body>
 </html>
