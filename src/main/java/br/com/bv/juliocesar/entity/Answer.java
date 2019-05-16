@@ -1,6 +1,6 @@
 package br.com.bv.juliocesar.entity;
 
-public class Mensagem {
+public class Answer {
 	
 	private String numero_casas;
 	private String token;

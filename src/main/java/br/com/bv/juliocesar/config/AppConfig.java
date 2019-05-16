@@ -15,10 +15,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import br.com.bv.juliocesar.controller.MensagemController;
-
 @EnableWebMvc
-@ComponentScan(basePackageClasses={MensagemController.class})
+@ComponentScan(basePackages={
+		"br.com.bv.juliocesar.controller", 
+		"br.com.bv.juliocesar.service"
+})
 public class AppConfig {
 
 	@Bean
