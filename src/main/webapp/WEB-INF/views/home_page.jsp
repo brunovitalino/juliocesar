@@ -11,6 +11,7 @@
 </head>
 <c:url value="/" var="contextPath"/>
 <body>
+	<div>${status }</div>
 	<h1>Criptografia de Júlio César</h1>
 	
 	<div>

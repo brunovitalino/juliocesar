@@ -42,6 +42,7 @@ public class HomeController {
 	
 	@GetMapping("/loadAnswer")
 	public ModelAndView loadAnswerToFields(RedirectAttributes redirectAttributes) {
+//		String jsonUrl = "http://codenation/token";
 		String jsonUrl = "http://localhost:8080/juliocesar/answer.json";
 		
 		Answer answer = restTemplate.getForObject(jsonUrl, Answer.class);
@@ -67,9 +68,10 @@ public class HomeController {
 	}
 	
 	@PostMapping("/saveAnswer")
-	public ModelAndView saveAnswer(Answer answer) {
+	public ModelAndView saveAnswer(Answer answer, RedirectAttributes redirectAttributes) {
 
-		answerService.save(answer);
+		String status = answerService.save(answer);
+		redirectAttributes.addFlashAttribute("status", status);
 		
 		return new ModelAndView("redirect:home");
 	}
