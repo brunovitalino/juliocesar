@@ -11,16 +11,19 @@
 </head>
 <c:url value="/" var="contextPath"/>
 <body>
-	<div>${status }</div>
 	<h1>Criptografia de Júlio César</h1>
 	
+	<div>${status }</div>
+	<br>
 	<div>
 		<a href="${contextPath }newAnswer">
 			<input type="button" value="Novo">
 		</a>
+		
 		<a href="${contextPath }loadAnswer">
 			<input type="button" value="Carregar">
 		</a>
+		
 		<form:form action="${contextPath }decodeAnswer" methodParam="POST" cssStyle="display: inline-block;"
 		commandName="answer">
 			<form:hidden path="numero_casas" readonly="true" />
@@ -30,9 +33,16 @@
 			<form:hidden path="resumo_criptografico" readonly="true"/>
 			<form:button>Decifrar</form:button>
 		</form:form>
-		<a href="${contextPath }encryptAnswer">
-			<input type="button" value="Criptografar">
-		</a>
+		
+		<form:form action="${contextPath }encryptAnswer" methodParam="POST" cssStyle="display: inline-block;"
+		commandName="answer">
+			<form:hidden path="numero_casas" readonly="true" />
+			<form:hidden path="token" readonly="true"/>
+			<form:hidden path="cifrado" readonly="true"/>
+			<form:hidden path="decifrado" readonly="true"/>
+			<form:hidden path="resumo_criptografico" readonly="true"/>
+			<form:button>Criptografar</form:button>
+		</form:form>
 	</div>
 	<br>
 	<form:form action="${contextPath }saveAnswer" methodParam="POST"

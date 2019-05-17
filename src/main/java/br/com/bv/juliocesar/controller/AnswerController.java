@@ -3,7 +3,6 @@ package br.com.bv.juliocesar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.bv.juliocesar.entity.Answer;
 import br.com.bv.juliocesar.service.AnswerService;
 import br.com.bv.juliocesar.utils.CustomModelAndView;
-import br.com.bv.juliocesar.utils.AnswerUtil;
 
 @RestController
 @RequestMapping("/answer")
@@ -36,8 +34,7 @@ public class AnswerController {
 	
 	@GetMapping()
 	public ModelAndView load() {
-		Answer answer = new Answer();
-		AnswerUtil.setDefaultAttributesValues(answer);
+		Answer answer = answerService.load();
 		
 		CustomModelAndView customModelAndView = new CustomModelAndView("home_page");
 		customModelAndView.setMensagemAttributes(answer);

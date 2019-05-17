@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.bv.juliocesar.entity.Answer;
 import br.com.bv.juliocesar.service.AnswerService;
+import br.com.bv.juliocesar.utils.ABC;
 import br.com.bv.juliocesar.utils.AnswerUtil;
 
 @Service
@@ -24,8 +26,14 @@ public class AnswerServiceImpl implements AnswerService {
 	HttpServletRequest request;
 
 	@Override
-	public void load() {
+	public Answer load() {
+		Answer answer = new Answer();
+		answer.setNumero_casas("8");
+		answer.setToken("473ea6e3edbecd2f4ba2b9ffdf1fe2522eeb920a");
+		answer.setCifrado("rclom i uiv jg pqa ycmabqwva zibpmz bpiv jg pqa ivaemza. dwtbiqzm");
+		answer.setDecifrado("");
 		
+		return answer;
 	}
 
 	@Override
@@ -49,15 +57,52 @@ public class AnswerServiceImpl implements AnswerService {
 	}
 
 	@Override
-	public void decode(Answer answer) {
-		String decifrado = "";
+	public Answer decode(Answer answer) {
 		
-		if (answer!=null)
-			decifrado = AnswerUtil.decode(answer.getCifrado(), Integer.parseInt(answer.getNumero_casas()));
+		if (AnswerUtil.isValid(answer) && !answer.getCifrado().isEmpty()) {
+				
+			Integer numeroCasas = Integer.parseInt(answer.getNumero_casas());
+			String cifrado = answer.getCifrado();
+			StringBuffer decifrado = new StringBuffer();
+			ABC abc = new ABC();
+			
+			for (int i=0; i<cifrado.length(); i++) {
+				char letter = cifrado.charAt(i);
+					
+				if ( !abc.hasLetter(letter) )
+					decifrado.append(letter);
+				
+				else {
+					int position = abc.getPositionByLetter(letter);
+					int nextPosition = position - numeroCasas;
+
+					if ( nextPosition <= 0 )
+						nextPosition = abc.getMaxPosition() + nextPosition;
+
+					char nextLetter = abc.getLetterByPosition(nextPosition);
+					decifrado.append(nextLetter);
+				}
+			}
+				
+			answer.setDecifrado(decifrado.toString());
+			
+		}
 		
-		answer.setDecifrado(decifrado);
+		return answer;
 	}
+
+	@Override
+	public Answer encryptAnswer(Answer answer) {
 		
-	
+		if (AnswerUtil.isValid(answer) && !answer.getDecifrado().isEmpty()) {
+			
+			byte[] decifrado = answer.getDecifrado().getBytes();
+			String resumo_criptografico = DigestUtils.md5DigestAsHex(decifrado);
+			
+			answer.setResumo_criptografico(resumo_criptografico);
+		}
+		
+		return answer;
+	}
 	
 }

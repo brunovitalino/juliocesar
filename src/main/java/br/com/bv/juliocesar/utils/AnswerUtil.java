@@ -3,14 +3,6 @@ package br.com.bv.juliocesar.utils;
 import br.com.bv.juliocesar.entity.Answer;
 
 public class AnswerUtil {
-	
-	public static void setDefaultAttributesValues(Answer msg) {
-		msg.setNumero_casas("8");
-		msg.setToken("473ea6e3edbecd2f4ba2b9ffdf1fe2522eeb920a");
-		msg.setCifrado("rclom i uiv jg pqa ycmabqwva zibpmz bpiv jg pqa ivaemza. dwtbiqzm");
-		msg.setDecifrado("");
-		msg.setResumo_criptografico("");
-	}
 
 	public static String decode(String cifrado, int numeroCasas) {
 		
@@ -39,6 +31,55 @@ public class AnswerUtil {
 		}
 		
 		return decifrado.toString();
+	}
+	
+	public static boolean isValid(Answer answer) {
+
+		if (answer!=null 
+		&& answer.getNumero_casas()!=null
+		&& answer.getToken()!=null
+		&& answer.getCifrado()!=null 
+		&& answer.getDecifrado()!=null
+		&& isInteger(answer.getNumero_casas(), 10)) {
+			return true;
+			
+		}else
+			return false;
+	}
+	
+	public static boolean isInteger(String number, int radix) {
+		
+	    /*try { 
+	        Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    } catch(NullPointerException e) {
+	        return false;
+	    }*/
+		if (number!=null) {
+			
+			if (number.isEmpty())
+				return false;
+
+		    for (int i = 0; i < number.length(); i++) {
+		    	
+		        if (i==0 && number.charAt(i)=='-') {
+		        	
+		            if(number.length() == 1)
+		            	return false;
+		            else 
+		            	continue;
+		        }
+		        
+		        if(Character.digit(number.charAt(i),radix) < 0)
+		        	return false;
+		    }
+		    return true;
+		
+		}
+		
+		
+		return true;
 	}
 	
 	

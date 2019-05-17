@@ -2,10 +2,8 @@ package br.com.bv.juliocesar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,15 +53,25 @@ public class HomeController {
 	@PostMapping("/decodeAnswer")
 	public ModelAndView decodeAnswer(Answer answer, RedirectAttributes redirectAttributes) {
 		
-		answerService.decode(answer);
+		answer = answerService.decode(answer);
 		
 		redirectAttributes.addFlashAttribute("answer", answer);
 		
 		return new ModelAndView("redirect:home");
 	}
 	
-	@RequestMapping("/encryptAnswer")
-	public ModelAndView encryptAnswer() {
+	@PostMapping("/encryptAnswer")
+	public ModelAndView encryptAnswer(Answer answer, RedirectAttributes redirectAttributes) {
+		String status = "";
+		
+		if (answer.getDecifrado()==null || answer.getDecifrado().isEmpty())
+			status = "Falha ao criptografar. Campo decifrado vazio.";
+		else
+			answer = answerService.encryptAnswer(answer);
+		
+		redirectAttributes.addFlashAttribute("answer", answer);
+		redirectAttributes.addFlashAttribute("status", status);
+		
 		return new ModelAndView("redirect:home");
 	}
 	
