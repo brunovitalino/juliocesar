@@ -6,5 +6,6 @@ public interface AnswerService {
 
 	public void save(Answer answer);
 	public void load();
+	public void decode(Answer answer);
 	
 }

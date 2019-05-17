@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.bv.juliocesar.entity.Answer;
 import br.com.bv.juliocesar.service.AnswerService;
 import br.com.bv.juliocesar.utils.CustomModelAndView;
-import br.com.bv.juliocesar.utils.ObjectUtil;
+import br.com.bv.juliocesar.utils.AnswerUtil;
 
 @RestController
 @RequestMapping("/answer")
@@ -37,7 +37,7 @@ public class AnswerController {
 	@GetMapping()
 	public ModelAndView load() {
 		Answer answer = new Answer();
-		ObjectUtil.setDefaultAttributesValues(answer);
+		AnswerUtil.setDefaultAttributesValues(answer);
 		
 		CustomModelAndView customModelAndView = new CustomModelAndView("home_page");
 		customModelAndView.setMensagemAttributes(answer);

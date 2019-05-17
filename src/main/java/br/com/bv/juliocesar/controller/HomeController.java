@@ -51,8 +51,13 @@ public class HomeController {
 		return new ModelAndView("redirect:home");
 	}
 	
-	@RequestMapping("/decodeAnswer")
-	public ModelAndView decodeAnswer() {
+	@PostMapping("/decodeAnswer")
+	public ModelAndView decodeAnswer(Answer answer, RedirectAttributes redirectAttributes) {
+		
+		answerService.decode(answer);
+		
+		redirectAttributes.addFlashAttribute("answer", answer);
+		
 		return new ModelAndView("redirect:home");
 	}
 	

@@ -20,15 +20,21 @@
 		<a href="${contextPath }loadAnswer">
 			<input type="button" value="Carregar">
 		</a>
-		<a href="${contextPath }decodeAnswer">
-			<input type="button" value="Decifrar">
-		</a>
+		<form:form action="${contextPath }decodeAnswer" methodParam="POST" cssStyle="display: inline-block;"
+		commandName="answer">
+			<form:hidden path="numero_casas" readonly="true" />
+			<form:hidden path="token" readonly="true"/>
+			<form:hidden path="cifrado" readonly="true"/>
+			<form:hidden path="decifrado" readonly="true"/>
+			<form:hidden path="resumo_criptografico" readonly="true"/>
+			<form:button>Decifrar</form:button>
+		</form:form>
 		<a href="${contextPath }encryptAnswer">
 			<input type="button" value="Criptografar">
 		</a>
 	</div>
 	<br>
-	<form:form action="${contextPath }saveAnswer" method="POST"
+	<form:form action="${contextPath }saveAnswer" methodParam="POST"
 	commandName="answer">
 		<div>
 			<label>Número de casas:</label>
