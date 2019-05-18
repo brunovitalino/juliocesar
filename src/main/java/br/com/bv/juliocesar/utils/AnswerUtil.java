@@ -39,8 +39,7 @@ public class AnswerUtil {
 		&& answer.getNumero_casas()!=null
 		&& answer.getToken()!=null
 		&& answer.getCifrado()!=null 
-		&& answer.getDecifrado()!=null
-		&& isInteger(answer.getNumero_casas(), 10)) {
+		&& answer.getDecifrado()!=null) {
 			return true;
 			
 		}else

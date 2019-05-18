@@ -29,7 +29,7 @@ public class AnswerServiceImpl implements AnswerService {
 	@Override
 	public Answer load() {
 		Answer answer = new Answer();
-		answer.setNumero_casas("8");
+		answer.setNumero_casas(8);
 		answer.setToken("473ea6e3edbecd2f4ba2b9ffdf1fe2522eeb920a");
 		answer.setCifrado("rclom i uiv jg pqa ycmabqwva zibpmz bpiv jg pqa ivaemza. dwtbiqzm");
 		answer.setDecifrado("");
@@ -63,7 +63,7 @@ public class AnswerServiceImpl implements AnswerService {
 		
 		if (AnswerUtil.isValid(answer) && !answer.getCifrado().isEmpty()) {
 				
-			Integer numeroCasas = Integer.parseInt(answer.getNumero_casas());
+			Integer numeroCasas = answer.getNumero_casas();
 			String cifrado = answer.getCifrado();
 			StringBuffer decifrado = new StringBuffer();
 			ABC abc = new ABC();
