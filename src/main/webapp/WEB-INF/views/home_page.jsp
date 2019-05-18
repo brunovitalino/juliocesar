@@ -70,5 +70,16 @@
 		<br>
 		<input type="submit" value="Salvar">
 	</form:form>
+	<br>
+	<form action="${contextPath }uploadAnswer" method="POST" enctype="multipart/form-data">
+		<fieldset>
+		<legend>Seleção do arquivo para upload</legend>
+			<div class="form-group">
+				<label>Selecione o arquivo:</label>
+				<input type="file" name="answer">
+			</div>
+			<button type="submit">Enviar</button>
+		</fieldset>
+	</form>
 </body>
 </html>

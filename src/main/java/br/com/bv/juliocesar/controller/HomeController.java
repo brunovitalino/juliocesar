@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -80,6 +81,16 @@ public class HomeController {
 
 		String status = answerService.save(answer);
 		redirectAttributes.addFlashAttribute("status", status);
+		
+		return new ModelAndView("redirect:home");
+	}
+	
+	@RequestMapping("uploadAnswer")
+	public ModelAndView uploadAnswer(MultipartFile answer, RedirectAttributes redirectAttributes) {
+		
+		String status = answerService.upload(answer);
+		redirectAttributes.addFlashAttribute("status", status);
+//		redirectAttributes.addFlashAttribute("answer", answer);
 		
 		return new ModelAndView("redirect:home");
 	}

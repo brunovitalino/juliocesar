@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,6 +39,7 @@ public class AnswerServiceImpl implements AnswerService {
 
 	@Override
 	public String save(Answer answer) {
+		
 		String filesPath = "resources/files/";
 		String fullFilesPath = request.getServletContext().getRealPath(filesPath);
 		String finalPath = fullFilesPath + "answer.json";		
@@ -103,6 +105,35 @@ public class AnswerServiceImpl implements AnswerService {
 		}
 		
 		return answer;
+	}
+
+	@Override
+	public String upload(MultipartFile multipartFile) {
+		
+		String status  = "Upload realizado com sucesso.";
+		
+		// Cria a pasta que hospedara o arquivo, caso nao exista
+		String uploadFolderPath = "resources/files/uploads/";
+		String fullUploadFolderPath = request.getServletContext().getRealPath(uploadFolderPath);
+		String fileName = multipartFile.getOriginalFilename();
+		String finalPath = fullUploadFolderPath + fileName;
+		Answer answer;
+		
+		File uploadFolder = new File(fullUploadFolderPath);
+		if (!uploadFolder.exists())
+			uploadFolder.mkdirs();
+		
+		// Cria o arquivo dentro da pasta
+		try {
+			answer = objectMapper.readValue(multipartFile.getInputStream(), Answer.class);
+			objectMapper.writeValue(new File(finalPath), answer);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return status;
 	}
 	
 }
