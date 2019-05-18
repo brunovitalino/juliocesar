@@ -10,6 +10,7 @@
 <title>Criptografia de Júlio César</title>
 </head>
 <c:url value="/" var="contextPath"/>
+<c:url value="https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=473ea6e3edbecd2f4ba2b9ffdf1fe2522eeb920a" var="uploadCodenation"/>
 <body>
 	<h1>Criptografia de Júlio César</h1>
 	
@@ -71,7 +72,7 @@
 		<input type="submit" value="Salvar">
 	</form:form>
 	<br>
-	<form action="${contextPath }uploadAnswer" method="POST" enctype="multipart/form-data">
+	<form action="${uploadCodenation }" method="POST" enctype="multipart/form-data">
 		<fieldset>
 		<legend>Seleção do arquivo para upload</legend>
 			<div class="form-group">
