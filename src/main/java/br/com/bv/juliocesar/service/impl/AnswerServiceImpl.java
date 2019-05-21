@@ -2,12 +2,13 @@ package br.com.bv.juliocesar.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -98,10 +99,17 @@ public class AnswerServiceImpl implements AnswerService {
 		
 		if (AnswerUtil.isValid(answer) && !answer.getDecifrado().isEmpty()) {
 			
-			byte[] decifrado = answer.getDecifrado().getBytes();
-			String resumo_criptografico = DigestUtils.md5DigestAsHex(decifrado);
+			try {
+				byte[] decifrado = answer.getDecifrado().getBytes("UTF-8");
+//				String resumo_criptografico = org.springframework.util.DigestUtils.md5DigestAsHex(decifrado);
+				String resumo_criptografico = DigestUtils.sha1Hex(decifrado);
+				answer.setResumo_criptografico(resumo_criptografico);
+
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			answer.setResumo_criptografico(resumo_criptografico);
 		}
 		
 		return answer;
